@@ -12,14 +12,22 @@ namespace Game.CodeBase.Views
         public event Action OnMoveRight;
 
         private IInputService _inputService;
+        private Penguin _penguin;
+        private Transform _left;
+        private Transform _right;
 
         [Inject]
-        public void Construct(IInputService inputService)
+        public void Construct(IInputService inputService, Penguin penguin, LevelPoints levelPoints)
         {
             _inputService = inputService;
 
             _inputService.MoveLeft += HandleMoveLeft;
             _inputService.MoveRight += HandleMoveRight;
+
+            _penguin = penguin;
+
+            _left = levelPoints.LeftPoint;
+            _right = levelPoints.RightPoint;
         }
 
         public void DisplayScore(int score)
@@ -28,6 +36,18 @@ namespace Game.CodeBase.Views
 
         public void DisplayPosition(PlayerPosition position)
         {
+            switch(position)
+            {
+                case PlayerPosition.Left:
+                    _penguin.transform.position = _left.position;
+                    break;
+
+                case PlayerPosition.Right:
+                    _penguin.transform.position = _right.position;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void HandleMoveLeft()

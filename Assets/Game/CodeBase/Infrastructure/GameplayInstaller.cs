@@ -10,6 +10,8 @@ namespace Game.CodeBase.Infrastructure
     public class GameplayInstaller : MonoInstaller
     {
         [Required, SerializeField] private RunView _runViewPrefab;
+        [Required, SerializeField] private Penguin _penguinPrefab;
+        [Required, SerializeField] private LevelPoints _levelPoints;
 
         public override void InstallBindings()
         {
@@ -18,6 +20,18 @@ namespace Game.CodeBase.Infrastructure
             Container
                 .Bind<RunView>()
                 .FromComponentInNewPrefab(_runViewPrefab)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<Penguin>()
+                .FromComponentInNewPrefab(_penguinPrefab)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<LevelPoints>()
+                .FromInstance(_levelPoints)
                 .AsSingle()
                 .NonLazy();
 
