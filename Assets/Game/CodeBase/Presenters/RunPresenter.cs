@@ -22,9 +22,17 @@ namespace Game.CodeBase.Presenters
             UpdateView();
         }
 
-        private void OnMoveLeft() => _model.SetPlayerPosition(PlayerPosition.Left);
+        private void OnMoveLeft()
+        {
+            _model.SetPlayerPosition(PlayerPosition.Left);
+            _model.IncrementScore();
+        }
 
-        private void OnMoveRight() => _model.SetPlayerPosition(PlayerPosition.Right);
+        private void OnMoveRight()
+        {
+            _model.SetPlayerPosition(PlayerPosition.Right);
+            _model.IncrementScore();
+        }
 
         private void OnModelUpdated()
         {

@@ -15,6 +15,11 @@ namespace Game.CodeBase.Models
             Updated?.Invoke();
         }
 
+        public void IncrementScore()
+        {
+            Score++;
+        }
+
         public void SetPlayerPosition(PlayerPosition position)
         {
             PlayerPosition = position;

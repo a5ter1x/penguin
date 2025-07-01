@@ -13,11 +13,12 @@ namespace Game.CodeBase.Views
 
         private IInputService _inputService;
         private Penguin _penguin;
+        private GameplayUI _gameplayUI;
         private Transform _left;
         private Transform _right;
 
         [Inject]
-        public void Construct(IInputService inputService, Penguin penguin, LevelPoints levelPoints)
+        public void Construct(IInputService inputService, Penguin penguin, GameplayUI gameplayUI, LevelPoints levelPoints)
         {
             _inputService = inputService;
 
@@ -26,12 +27,15 @@ namespace Game.CodeBase.Views
 
             _penguin = penguin;
 
+            _gameplayUI = gameplayUI;
+
             _left = levelPoints.LeftPoint;
             _right = levelPoints.RightPoint;
         }
 
         public void DisplayScore(int score)
         {
+            _gameplayUI.ScoreField.text = score.ToString();
         }
 
         public void DisplayPosition(PlayerPosition position)

@@ -11,6 +11,7 @@ namespace Game.CodeBase.Infrastructure
     {
         [Required, SerializeField] private RunView _runViewPrefab;
         [Required, SerializeField] private Penguin _penguinPrefab;
+        [Required, SerializeField] private GameplayUI _gameplayUI;
         [Required, SerializeField] private LevelPoints _levelPoints;
 
         public override void InstallBindings()
@@ -26,6 +27,12 @@ namespace Game.CodeBase.Infrastructure
             Container
                 .Bind<Penguin>()
                 .FromComponentInNewPrefab(_penguinPrefab)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<GameplayUI>()
+                .FromInstance(_gameplayUI)
                 .AsSingle()
                 .NonLazy();
 
