@@ -16,8 +16,15 @@ namespace Game.CodeBase.Presenters
 
             _model.Updated += UpdateView;
 
+            _view.OnMoveLeft += OnMoveLeft;
+            _view.OnMoveRight += OnMoveRight;
+
             UpdateView();
         }
+
+        private void OnMoveLeft() => _model.SetPlayerPosition(PlayerPosition.Left);
+
+        private void OnMoveRight() => _model.SetPlayerPosition(PlayerPosition.Right);
 
         private void OnModelUpdated()
         {
@@ -33,6 +40,9 @@ namespace Game.CodeBase.Presenters
         public void Dispose()
         {
             _model.Updated -= OnModelUpdated;
+
+            _view.OnMoveLeft -= OnMoveLeft;
+            _view.OnMoveRight -= OnMoveRight;
         }
     }
 }
