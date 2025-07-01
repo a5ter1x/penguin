@@ -6,11 +6,12 @@ namespace Game.CodeBase.Infrastructure
 {
     public class Game : MonoBehaviour
     {
-        public IGameStateMachine StateMachine { get; private set; }
+        private IGameStateMachine _stateMachine;
 
         [Inject]
         public void Construct(IGameStateMachine stateMachine)
         {
+            _stateMachine = stateMachine;
         }
     }
 }
