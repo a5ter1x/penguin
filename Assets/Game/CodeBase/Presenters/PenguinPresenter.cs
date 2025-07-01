@@ -14,17 +14,17 @@ namespace Game.CodeBase.Presenters
             _model = model;
             _view = view;
 
-            _model.OnSideUpdated += UpdateSide;
+            _model.OnSideUpdated += SideUpdated;
         }
 
-        private void UpdateSide(Side side)
+        private void SideUpdated(Side fromSide)
         {
-            _view.UpdateSide(side);
+            _view.UpdateSide(fromSide);
         }
 
         public void Dispose()
         {
-            _model.OnSideUpdated -= UpdateSide;
+            _model.OnSideUpdated -= SideUpdated;
         }
     }
 }

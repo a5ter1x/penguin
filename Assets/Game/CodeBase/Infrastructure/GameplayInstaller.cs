@@ -9,7 +9,7 @@ namespace Game.CodeBase.Infrastructure
 {
     public class GameplayInstaller : MonoInstaller
     {
-        [Required, SerializeField] private RunView _runViewPrefab;
+        [Required, SerializeField] private RunView _runView;
         [Required, SerializeField] private IceBallTowerView _iceBallTowerView;
         [Required, SerializeField] private PenguinView _penguinView;
         [Required, SerializeField] private GameplayUI _gameplayUI;
@@ -26,7 +26,7 @@ namespace Game.CodeBase.Infrastructure
 
             Container
                 .Bind<PenguinView>()
-                .FromComponentInNewPrefab(_penguinView)
+                .FromInstance(_penguinView)
                 .AsSingle()
                 .NonLazy();
 
@@ -52,7 +52,7 @@ namespace Game.CodeBase.Infrastructure
 
             Container
                 .Bind<RunView>()
-                .FromComponentInNewPrefab(_runViewPrefab)
+                .FromInstance(_runView)
                 .AsSingle()
                 .NonLazy();
 

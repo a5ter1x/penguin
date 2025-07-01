@@ -44,4 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2f2bd758a14e48b667fab00ceb5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _penguinSprite: {fileID: 4844229367746343334, guid: 902cd07a021927b408ca0a68a27cb201, type: 3}
+  _stages:
+  - TopColor: {r: 0.8, g: 0.9, b: 1, a: 1}
+    BottomColor: {r: 0.4, g: 0.5, b: 0.8, a: 1}
+  - TopColor: {r: 0.3, g: 0.7, b: 1, a: 1}
+    BottomColor: {r: 0.5, g: 0.9, b: 1, a: 1}
+  - TopColor: {r: 1, g: 0.5, b: 0.3, a: 1}
+    BottomColor: {r: 0.4, g: 0.2, b: 0.6, a: 1}
+  - TopColor: {r: 0.05, g: 0.02, b: 0.1, a: 1}
+    BottomColor: {r: 0.01, g: 0.01, b: 0.05, a: 1}
+  _skyMaterial: {fileID: 2100000, guid: 6d44ecfc22463744b9f85eb9d820b5a4, type: 2}

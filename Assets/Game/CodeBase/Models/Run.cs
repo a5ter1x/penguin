@@ -4,6 +4,8 @@ namespace Game.CodeBase.Models
 {
     public class Run
     {
+        public const float MaxDurationInSeconds = 100;
+
         public event Action OnScoreUpdated;
 
         private readonly IceBallTower _iceBallTower;
@@ -17,6 +19,7 @@ namespace Game.CodeBase.Models
             _penguin = penguin;
 
             _iceBallTower.Create();
+            _penguin.UpdateSide(Side.Left);
         }
 
         public void SetScore(int newScore)

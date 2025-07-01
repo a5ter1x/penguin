@@ -10,7 +10,9 @@ namespace Game.CodeBase.Models
 
         public void UpdateSide(Side side)
         {
-            OnSideUpdated?.Invoke(side);
+            _side = side;
+
+            OnSideUpdated?.Invoke(_side);
         }
     }
 }
