@@ -1,6 +1,5 @@
 using System;
 using Game.CodeBase.Infrastructure.Services.Input;
-using Game.CodeBase.Models;
 using UnityEngine;
 using Zenject;
 
@@ -12,17 +11,12 @@ namespace Game.CodeBase.Views
         public event Action OnMoveRight;
 
         private IInputService _inputService;
-        private Penguin _penguin;
         private GameplayUI _gameplayUI;
-        private Transform _left;
-        private Transform _right;
 
         [Inject]
         public void Construct(
             IInputService inputService,
-            Penguin penguin,
             GameplayUI gameplayUI,
-            LevelPoints levelPoints,
             IceBallTowerView towerView)
         {
             _inputService = inputService;
@@ -30,33 +24,12 @@ namespace Game.CodeBase.Views
             _inputService.MoveLeft += HandleMoveLeft;
             _inputService.MoveRight += HandleMoveRight;
 
-            _penguin = penguin;
-
             _gameplayUI = gameplayUI;
-
-            _left = levelPoints.LeftPoint;
-            _right = levelPoints.RightPoint;
         }
 
         public void DisplayScore(int score)
         {
             _gameplayUI.ScoreField.text = score.ToString();
-        }
-
-        public void DisplayPosition(Side position)
-        {
-            switch(position)
-            {
-                case Side.Left:
-                    _penguin.transform.position = _left.position;
-                    break;
-
-                case Side.Right:
-                    _penguin.transform.position = _right.position;
-                    break;
-                default:
-                    break;
-            }
         }
 
         private void HandleMoveLeft()

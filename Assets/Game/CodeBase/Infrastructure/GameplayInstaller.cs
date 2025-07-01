@@ -11,27 +11,27 @@ namespace Game.CodeBase.Infrastructure
     {
         [Required, SerializeField] private RunView _runViewPrefab;
         [Required, SerializeField] private IceBallTowerView _iceBallTowerView;
-        [Required, SerializeField] private Penguin _penguinPrefab;
+        [Required, SerializeField] private PenguinView _penguinView;
         [Required, SerializeField] private GameplayUI _gameplayUI;
-        [Required, SerializeField] private LevelPoints _levelPoints;
 
         public override void InstallBindings()
         {
-            Container
-                .Bind<Penguin>()
-                .FromComponentInNewPrefab(_penguinPrefab)
-                .AsSingle()
-                .NonLazy();
-
             Container
                 .Bind<GameplayUI>()
                 .FromInstance(_gameplayUI)
                 .AsSingle()
                 .NonLazy();
 
+            Container.Bind<Penguin>().AsSingle();
+
             Container
-                .Bind<LevelPoints>()
-                .FromInstance(_levelPoints)
+                .Bind<PenguinView>()
+                .FromComponentInNewPrefab(_penguinView)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<PenguinPresenter>()
                 .AsSingle()
                 .NonLazy();
 

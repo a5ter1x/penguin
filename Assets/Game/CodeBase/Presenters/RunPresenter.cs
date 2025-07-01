@@ -15,13 +15,11 @@ namespace Game.CodeBase.Presenters
             _view = view;
 
             _model.OnScoreUpdated += UpdateScore;
-            _model.OnPlayerPositionUpdated += UpdatePlayerPosition;
 
             _view.OnMoveLeft += OnMoveLeft;
             _view.OnMoveRight += OnMoveRight;
 
             UpdateScore();
-            UpdatePlayerPosition();
         }
 
         private void OnMoveLeft()
@@ -39,15 +37,9 @@ namespace Game.CodeBase.Presenters
             _view.DisplayScore(_model.Score);
         }
 
-        private void UpdatePlayerPosition()
-        {
-            _view.DisplayPosition(_model.Side);
-        }
-
         public void Dispose()
         {
             _model.OnScoreUpdated -= UpdateScore;
-            _model.OnPlayerPositionUpdated -= UpdatePlayerPosition;
 
             _view.OnMoveLeft -= OnMoveLeft;
             _view.OnMoveRight -= OnMoveRight;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Game.CodeBase.Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Game.CodeBase.Views
         [Required, SerializeField] private Transform _bottomPoint;
         [Required, SerializeField] private IceBallView _iceBallPrefab;
         [Min(0), SerializeField] private float _spacing = 0.85f;
+        [Min(0), SerializeField] private float _moveDuration = 0.1f;
 
         private readonly List<IceBallView> _balls = new();
 
@@ -38,6 +40,7 @@ namespace Game.CodeBase.Views
             _balls.RemoveAt(0);
 
             bottomBall.SetColor(ball.Color);
+            bottomBall.transform.position = _bottomPoint.position + _balls.Count * Vector3.up * _spacing;
             _balls.Add(bottomBall);
 
             UpdatePositions();
@@ -47,7 +50,12 @@ namespace Game.CodeBase.Views
         {
             for (var i = 0; i < _balls.Count; i++)
             {
-                _balls[i].transform.position = _bottomPoint.position + Vector3.up * i * _spacing;
+                _balls[i].SetOrder(i);
+
+                var targetY = _bottomPoint.position.y + i * _spacing;
+
+                _balls[i].transform.DOKill();
+                _balls[i].transform.DOMoveY(targetY, _moveDuration);
             }
         }
 

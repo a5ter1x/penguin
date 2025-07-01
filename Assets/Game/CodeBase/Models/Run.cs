@@ -5,16 +5,17 @@ namespace Game.CodeBase.Models
     public class Run
     {
         public event Action OnScoreUpdated;
-        public event Action OnPlayerPositionUpdated;
 
         private readonly IceBallTower _iceBallTower;
+        private readonly Penguin _penguin;
 
         public int Score { get; private set; }
-        public Side Side { get; private set; }
 
-        public Run(IceBallTower iceBallTower)
+        public Run(IceBallTower iceBallTower, Penguin penguin)
         {
             _iceBallTower = iceBallTower;
+            _penguin = penguin;
+
             _iceBallTower.Create();
         }
 
@@ -26,8 +27,9 @@ namespace Game.CodeBase.Models
 
         public void MoveNext(Side side)
         {
-            SetPlayerPosition(side);
+            _penguin.UpdateSide(side);
             _iceBallTower.Shift();
+
             IncrementScore();
         }
 
@@ -35,12 +37,6 @@ namespace Game.CodeBase.Models
         {
             Score++;
             OnScoreUpdated?.Invoke();
-        }
-
-        private void SetPlayerPosition(Side position)
-        {
-            Side = position;
-            OnPlayerPositionUpdated?.Invoke();
         }
     }
 }

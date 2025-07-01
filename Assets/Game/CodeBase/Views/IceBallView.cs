@@ -11,5 +11,10 @@ namespace Game.CodeBase.Views
         {
             _spriteRenderer.color = color;
         }
+
+        public void SetOrder(int order)
+        {
+            _spriteRenderer.sortingOrder = order;
+        }
     }
 }

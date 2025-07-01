@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4226243557983562421}
   - component: {fileID: 4844229367746343334}
   - component: {fileID: -4102963356529221196}
-  - component: {fileID: 3212397145069240565}
+  - component: {fileID: 2455285977385917124}
   m_Layer: 0
   m_Name: Penguin
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3212397145069240565
+--- !u!114 &2455285977385917124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82767fb83cae47b7be5a447190c0812c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftTransform: {fileID: 0}
+  _rightTransform: {fileID: 0}
