@@ -18,7 +18,12 @@ namespace Game.CodeBase.Views
         private Transform _right;
 
         [Inject]
-        public void Construct(IInputService inputService, Penguin penguin, GameplayUI gameplayUI, LevelPoints levelPoints)
+        public void Construct(
+            IInputService inputService,
+            Penguin penguin,
+            GameplayUI gameplayUI,
+            LevelPoints levelPoints,
+            IceBallTowerView towerView)
         {
             _inputService = inputService;
 
@@ -38,15 +43,15 @@ namespace Game.CodeBase.Views
             _gameplayUI.ScoreField.text = score.ToString();
         }
 
-        public void DisplayPosition(PlayerPosition position)
+        public void DisplayPosition(Side position)
         {
             switch(position)
             {
-                case PlayerPosition.Left:
+                case Side.Left:
                     _penguin.transform.position = _left.position;
                     break;
 
-                case PlayerPosition.Right:
+                case Side.Right:
                     _penguin.transform.position = _right.position;
                     break;
                 default:
