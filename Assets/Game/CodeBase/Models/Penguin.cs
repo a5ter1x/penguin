@@ -4,15 +4,38 @@ namespace Game.CodeBase.Models
 {
     public class Penguin
     {
-        public event Action<Side> OnSideUpdated;
+        public event Action<Side> SideChanged;
+        public event Action<IceBall> IceBallEaten;
+
+        private readonly IceBallTower _iceBallTower;
 
         private Side _side;
 
-        public void UpdateSide(Side side)
+        public Penguin(IceBallTower iceBallTower)
         {
-            _side = side;
+            _iceBallTower = iceBallTower;
+        }
 
-            OnSideUpdated?.Invoke(_side);
+        public void MoveToSide(Side side)
+        {
+            SetSide(side);
+            Eat(_iceBallTower.BottomBall);
+        }
+
+        public void SetSide(Side side)
+        {
+            if (side == _side)
+            {
+                return;
+            }
+
+            _side = side;
+            SideChanged?.Invoke(_side);
+        }
+
+        private void Eat(IceBall iceBall)
+        {
+            IceBallEaten?.Invoke(iceBall);
         }
     }
 }

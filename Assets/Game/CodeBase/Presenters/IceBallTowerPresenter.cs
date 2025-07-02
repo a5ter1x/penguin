@@ -15,24 +15,24 @@ namespace Game.CodeBase.Presenters
             _model = model;
             _view = view;
 
-            _model.OnCrated += CreateTower;
-            _model.OnShift += ShiftTower;
+            _model.Creted += OnTowerCreated;
+            _model.Shifted += OnTowerShifted;
         }
 
-        private void CreateTower(List<IceBall> balls)
+        private void OnTowerCreated(List<IceBall> balls)
         {
             _view.Create(balls);
         }
 
-        private void ShiftTower(IceBall ball)
+        private void OnTowerShifted(IceBall ball)
         {
             _view.Shift(ball);
         }
 
         public void Dispose()
         {
-            _model.OnCrated -= CreateTower;
-            _model.OnShift -= ShiftTower;
+            _model.Creted -= OnTowerCreated;
+            _model.Shifted -= OnTowerShifted;
         }
     }
 }

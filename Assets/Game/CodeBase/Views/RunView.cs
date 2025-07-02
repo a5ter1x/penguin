@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Game.CodeBase.Infrastructure.Services.Input;
 using Game.CodeBase.Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,35 +9,22 @@ namespace Game.CodeBase.Views
 {
     public class RunView : MonoBehaviour
     {
+        private static readonly int TopColorId = Shader.PropertyToID("_TopColor");
+        private static readonly int BottomColorId = Shader.PropertyToID("_BottomColor");
+
         private float _skyStageDuration;
         private Material _skyMaterial;
 
         [Required, SerializeField] private Renderer _skyRenderer;
-        [Required, SerializeField] private List<VerticalGradient> _skyColorStages = new()
-        {
-            new VerticalGradient(new Color(0.8f, 0.9f, 1f), new Color(0.4f, 0.5f, 0.8f)),
-            new VerticalGradient(new Color(0.3f, 0.7f, 1f), new Color(0.5f, 0.9f, 1f)),
-            new VerticalGradient(new Color(1f, 0.5f, 0.3f), new Color(0.4f, 0.2f, 0.6f)),
-            new VerticalGradient(new Color(0.05f, 0.02f, 0.1f), new Color(0.01f, 0.01f, 0.05f)),
-        };
 
-        public event Action OnMoveLeft;
-        public event Action OnMoveRight;
+        [RequiredListLength(minLength: 0, maxLength: int.MaxValue), Required, SerializeField]
+        private List<VerticalGradient> _skyColorStages = new();
 
-        private IInputService _inputService;
         private GameplayUI _gameplayUI;
 
         [Inject]
-        public void Construct(
-            IInputService inputService,
-            GameplayUI gameplayUI,
-            IceBallTowerView towerView)
+        public void Construct(GameplayUI gameplayUI)
         {
-            _inputService = inputService;
-
-            _inputService.MoveLeft += HandleMoveLeft;
-            _inputService.MoveRight += HandleMoveRight;
-
             _gameplayUI = gameplayUI;
         }
 
@@ -56,30 +41,18 @@ namespace Game.CodeBase.Views
             _gameplayUI.ScoreField.text = score.ToString();
         }
 
-        private void HandleMoveLeft()
-        {
-            OnMoveLeft?.Invoke();
-        }
-
-        private void HandleMoveRight()
-        {
-            OnMoveRight?.Invoke();
-        }
-
-        private void OnDestroy()
-        {
-            _inputService.MoveLeft -= HandleMoveLeft;
-            _inputService.MoveRight -= HandleMoveRight;
-        }
-
         private async UniTaskVoid AnimateSkyCycle()
         {
-            for (var i = 0; i < _skyColorStages.Count; i++)
+            var index = 0;
+
+            while (true)
             {
-                var current = _skyColorStages[i];
-                var next = _skyColorStages[(i + 1) % _skyColorStages.Count];
+                var current = _skyColorStages[index];
+                var next = _skyColorStages[(index + 1) % _skyColorStages.Count];
 
                 await LerpColors(current, next, _skyStageDuration);
+
+                index = (index + 1) % _skyColorStages.Count;
             }
         }
 
@@ -105,11 +78,8 @@ namespace Game.CodeBase.Views
 
         private void SetSkyColors(Color top, Color bottom)
         {
-            const string topColorPropertyName = "_TopColor";
-            const string bottomColorPropertyName = "_BottomColor";
-
-            _skyMaterial.SetColor(topColorPropertyName, top);
-            _skyMaterial.SetColor(bottomColorPropertyName, bottom);
+            _skyMaterial.SetColor(TopColorId, top);
+            _skyMaterial.SetColor(BottomColorId, bottom);
         }
     }
 }

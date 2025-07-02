@@ -14,22 +14,9 @@ namespace Game.CodeBase.Presenters
             _model = model;
             _view = view;
 
-            _model.OnScoreUpdated += UpdateScore;
-
-            _view.OnMoveLeft += OnMoveLeft;
-            _view.OnMoveRight += OnMoveRight;
+            _model.ScoreUpdated += UpdateScore;
 
             UpdateScore();
-        }
-
-        private void OnMoveLeft()
-        {
-            _model.MoveNext(Side.Left);
-        }
-
-        private void OnMoveRight()
-        {
-            _model.MoveNext(Side.Right);
         }
 
         private void UpdateScore()
@@ -39,10 +26,8 @@ namespace Game.CodeBase.Presenters
 
         public void Dispose()
         {
-            _model.OnScoreUpdated -= UpdateScore;
+            _model.ScoreUpdated -= UpdateScore;
 
-            _view.OnMoveLeft -= OnMoveLeft;
-            _view.OnMoveRight -= OnMoveRight;
         }
     }
 }

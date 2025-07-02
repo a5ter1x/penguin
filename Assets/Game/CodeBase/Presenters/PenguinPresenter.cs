@@ -14,17 +14,40 @@ namespace Game.CodeBase.Presenters
             _model = model;
             _view = view;
 
-            _model.OnSideUpdated += SideUpdated;
+            _model.SideChanged += OnSideChanged;
+            _model.IceBallEaten += OnIceBallEaten;
+
+            _view.OnMovedLeft += OnMovedLeft;
+            _view.OnMovedRight += OnMovedRight;
         }
 
-        private void SideUpdated(Side fromSide)
+        private void OnSideChanged(Side fromSide)
         {
             _view.UpdateSide(fromSide);
         }
 
+        private void OnIceBallEaten(IceBall iceBall)
+        {
+            _view.Eat(iceBall);
+        }
+
+        private void OnMovedLeft()
+        {
+            _model.MoveToSide(Side.Left);
+        }
+
+        private void OnMovedRight()
+        {
+            _model.MoveToSide(Side.Right);
+        }
+
         public void Dispose()
         {
-            _model.OnSideUpdated -= SideUpdated;
+            _model.SideChanged -= OnSideChanged;
+            _model.IceBallEaten -= OnIceBallEaten;
+
+            _view.OnMovedLeft -= OnMovedLeft;
+            _view.OnMovedRight -= OnMovedRight;
         }
     }
 }

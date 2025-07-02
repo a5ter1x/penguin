@@ -39,11 +39,16 @@ namespace Game.CodeBase.Views
             var bottomBall = _balls[0];
             _balls.RemoveAt(0);
 
-            bottomBall.SetColor(ball.Color);
+            ReuseBallWithNewModel(bottomBall, ball);
             bottomBall.transform.position = _bottomPoint.position + _balls.Count * Vector3.up * _spacing;
             _balls.Add(bottomBall);
 
             UpdatePositions();
+        }
+
+        private void ReuseBallWithNewModel(IceBallView view, IceBall newModel)
+        {
+            view.SetColor(newModel.Color);
         }
 
         private void UpdatePositions()

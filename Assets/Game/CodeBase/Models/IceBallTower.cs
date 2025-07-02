@@ -9,10 +9,12 @@ namespace Game.CodeBase.Models
     {
         private const int Size = 20;
 
-        public event Action<List<IceBall>> OnCrated;
-        public event Action<IceBall> OnShift;
+        public event Action<List<IceBall>> Creted;
+        public event Action<IceBall> Shifted;
 
         private readonly List<IceBall> _balls = new();
+
+        public IceBall BottomBall => _balls[0];
 
         public void Create()
         {
@@ -25,7 +27,7 @@ namespace Game.CodeBase.Models
                 _balls.Add(iceBall);
             }
 
-            OnCrated?.Invoke(_balls);
+            Creted?.Invoke(_balls);
         }
 
         public void Shift()
@@ -36,7 +38,7 @@ namespace Game.CodeBase.Models
             ball.SetData(barrierSide: null, color: RandomColor());
             _balls.Add(ball);
 
-            OnShift?.Invoke(ball);
+            Shifted?.Invoke(ball);
         }
 
         private static Color RandomColor()

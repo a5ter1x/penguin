@@ -2,11 +2,11 @@ using System;
 
 namespace Game.CodeBase.Models
 {
-    public class Run
+    public class Run : IDisposable
     {
         public const float MaxDurationInSeconds = 100;
 
-        public event Action OnScoreUpdated;
+        public event Action ScoreUpdated;
 
         private readonly IceBallTower _iceBallTower;
         private readonly Penguin _penguin;
@@ -18,28 +18,28 @@ namespace Game.CodeBase.Models
             _iceBallTower = iceBallTower;
             _penguin = penguin;
 
+            _penguin.IceBallEaten += PenguinOnIceBallEaten;
+
             _iceBallTower.Create();
-            _penguin.UpdateSide(Side.Left);
+            _penguin.SetSide(Side.Left);
         }
 
-        public void SetScore(int newScore)
+        private void PenguinOnIceBallEaten(IceBall obj)
         {
-            Score = newScore;
-            OnScoreUpdated?.Invoke();
-        }
-
-        public void MoveNext(Side side)
-        {
-            _penguin.UpdateSide(side);
             _iceBallTower.Shift();
-
             IncrementScore();
+
         }
 
         private void IncrementScore()
         {
             Score++;
-            OnScoreUpdated?.Invoke();
+            ScoreUpdated?.Invoke();
+        }
+
+        public void Dispose()
+        {
+            _penguin.IceBallEaten -= PenguinOnIceBallEaten;
         }
     }
 }
