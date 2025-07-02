@@ -7,7 +7,7 @@ namespace Game.CodeBase.Models
         public const float MaxDurationInSeconds = 100;
 
         public event Action ScoreUpdated;
-        public event Action Lose;
+        public event Action Loss;
 
         private readonly IceBallTower _iceBallTower;
         private readonly Penguin _penguin;
@@ -32,7 +32,9 @@ namespace Game.CodeBase.Models
 
             if (_iceBallTower.BottomBall.BarrierSide == _penguin.Side)
             {
-                Lose?.Invoke();
+                _penguin.ReactToLoss();
+                _iceBallTower.DestroySideBarrier();
+                Loss?.Invoke();
             }
         }
 

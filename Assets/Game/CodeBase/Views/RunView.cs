@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using Game.CodeBase.Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Game.CodeBase.Views
@@ -42,10 +41,9 @@ namespace Game.CodeBase.Views
             _gameplayUI.ScoreField.text = score.ToString();
         }
 
-        public void Lose()
+        public void Loss()
         {
             Debug.Log("Lose");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private async UniTaskVoid AnimateSkyCycle()

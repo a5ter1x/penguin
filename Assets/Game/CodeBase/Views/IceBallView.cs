@@ -9,18 +9,41 @@ namespace Game.CodeBase.Views
         [Required, SerializeField] private SpriteRenderer _spriteRenderer;
         [Required, SerializeField] private Transform _leftBarrierPoint;
         [Required, SerializeField] private Transform _rightBarrierPoint;
-        [Required, SerializeField] private GameObject _barrier;
+        [Required, SerializeField] private GameObject _defaultBarrier;
+        [Required, SerializeField] private GameObject _damagedBarrier;
         private Side? _barrierSide;
 
         public void SetModel(Side? barrierSide, Color color)
         {
             _barrierSide = barrierSide;
 
-            _barrier.SetActive(_barrierSide.HasValue);
+            _damagedBarrier.SetActive(false);
+            ActivateBarrier(_defaultBarrier);
+
+            _spriteRenderer.color = color;
+        }
+
+        public void ActivateDamagedBarrier()
+        {
+            if (_barrierSide.HasValue)
+            {
+                _defaultBarrier.gameObject.SetActive(false);
+                ActivateBarrier(_damagedBarrier);
+            }
+        }
+
+        public void SetOrder(int order)
+        {
+            _spriteRenderer.sortingOrder = order;
+        }
+
+        private void ActivateBarrier(GameObject barrier)
+        {
+            barrier.gameObject.SetActive(true);
 
             Transform targetPoint = null;
 
-            switch (barrierSide)
+            switch (_barrierSide)
             {
                 case Side.Left:
                     targetPoint = _leftBarrierPoint;
@@ -33,17 +56,10 @@ namespace Game.CodeBase.Views
 
             if (targetPoint != null)
             {
-                _barrier.transform.SetParent(targetPoint, false);
-                _barrier.transform.localPosition = Vector3.zero;
-                _barrier.transform.localRotation = Quaternion.identity;
+                _damagedBarrier.transform.SetParent(targetPoint, false);
+                _damagedBarrier.transform.localPosition = Vector3.zero;
+                _damagedBarrier.transform.localRotation = Quaternion.identity;
             }
-
-            _spriteRenderer.color = color;
-        }
-
-        public void SetOrder(int order)
-        {
-            _spriteRenderer.sortingOrder = order;
         }
     }
 }

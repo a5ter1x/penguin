@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: b8b2214866034bd4bb2b840d69b81776
+guid: 643ca89b449e3bf4d82d4f93933c49d9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8984399774506684644
-    second: Waffle-Side1_0
+      213: -3543385942255095517
+    second: WaffleSide_0
+  - first:
+      213: 4357209757720665433
+    second: WaffleSide_1
+  - first:
+      213: 7541783433026211546
+    second: WaffleSide_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Waffle-Side1_0
+      name: WaffleSide_0
       rect:
         serializedVersion: 2
         x: 14
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1fed68a100015380800000000000000
-      internalID: -8984399774506684644
+      spriteID: 321b5c9524d53dec0800000000000000
+      internalID: -3543385942255095517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaffleSide_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 10
+        width: 102
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d5ecc603be77c30800000000000000
+      internalID: 4357209757720665433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WaffleSide_2
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 10
+        width: 102
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ade0472031cc9a860800000000000000
+      internalID: 7541783433026211546
       vertices: []
       indices: 
       edges: []
@@ -151,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Waffle-Side1_0: -8984399774506684644
+      WaffleSide_0: -3543385942255095517
+      WaffleSide_1: 4357209757720665433
+      WaffleSide_2: 7541783433026211546
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

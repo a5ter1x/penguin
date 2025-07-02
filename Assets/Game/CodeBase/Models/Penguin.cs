@@ -6,6 +6,7 @@ namespace Game.CodeBase.Models
     {
         public event Action<Side> SideChanged;
         public event Action<IceBall> IceBallEaten;
+        public event Action ReactedToLoss;
 
         private readonly IceBallTower _iceBallTower;
 
@@ -31,6 +32,11 @@ namespace Game.CodeBase.Models
 
             Side = side;
             SideChanged?.Invoke(Side);
+        }
+
+        public void ReactToLoss()
+        {
+            ReactedToLoss?.Invoke();
         }
 
         private void Eat(IceBall iceBall)

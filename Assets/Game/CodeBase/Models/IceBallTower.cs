@@ -12,6 +12,8 @@ namespace Game.CodeBase.Models
         public event Action<List<IceBall>> Creted;
         public event Action<IceBall> Shifted;
 
+        public event Action SideBarrierDestroyed;
+
         private readonly List<IceBall> _balls = new();
 
         public IceBall BottomBall => _balls[0];
@@ -39,6 +41,11 @@ namespace Game.CodeBase.Models
             _balls.Add(ball);
 
             Shifted?.Invoke(ball);
+        }
+
+        public void DestroySideBarrier()
+        {
+            SideBarrierDestroyed?.Invoke();
         }
 
         private static Side? RandomBarrierSide()

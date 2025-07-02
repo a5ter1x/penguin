@@ -17,6 +17,7 @@ namespace Game.CodeBase.Presenters
 
             _model.Creted += OnTowerCreated;
             _model.Shifted += OnTowerShifted;
+            _model.SideBarrierDestroyed += OnSideBarrierDestroyed;
         }
 
         private void OnTowerCreated(List<IceBall> balls)
@@ -27,6 +28,11 @@ namespace Game.CodeBase.Presenters
         private void OnTowerShifted(IceBall ball)
         {
             _view.Shift(ball);
+        }
+
+        private void OnSideBarrierDestroyed()
+        {
+            _view.DestroySideBarrier();
         }
 
         public void Dispose()

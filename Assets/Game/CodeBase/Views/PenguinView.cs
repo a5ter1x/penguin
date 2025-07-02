@@ -80,6 +80,14 @@ namespace Game.CodeBase.Views
             AnimateTilt();
         }
 
+        public void PlayLossAnimation()
+        {
+            _stretchTween?.Kill();
+            _eatVfx.Stop();
+
+            _animator.SetState(AnimationState.Loss);
+        }
+
         private void PlayEatAnimation(IceBall iceBall)
         {
             _animator.SetState(AnimationState.Eat);
@@ -129,6 +137,7 @@ namespace Game.CodeBase.Views
         {
             Idle = 0,
             Eat = 1,
+            Loss = 2,
         }
     }
 }

@@ -46,6 +46,11 @@ namespace Game.CodeBase.Views
             UpdatePositions();
         }
 
+        public void DestroySideBarrier()
+        {
+            _balls[0].ActivateDamagedBarrier();
+        }
+
         private void ReuseBallWithNewModel(IceBallView view, IceBall newModel)
         {
             view.SetModel(newModel.BarrierSide, newModel.Color);

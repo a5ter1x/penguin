@@ -16,6 +16,7 @@ namespace Game.CodeBase.Presenters
 
             _model.SideChanged += OnSideChanged;
             _model.IceBallEaten += OnIceBallEaten;
+            _model.ReactedToLoss += OnReactedToLoss;
 
             _view.OnMovedLeft += OnMovedLeft;
             _view.OnMovedRight += OnMovedRight;
@@ -29,6 +30,11 @@ namespace Game.CodeBase.Presenters
         private void OnIceBallEaten(IceBall iceBall)
         {
             _view.Eat(iceBall);
+        }
+
+        private void OnReactedToLoss()
+        {
+            _view.PlayLossAnimation();
         }
 
         private void OnMovedLeft()
