@@ -9,12 +9,12 @@ namespace Game.CodeBase.Models
 
         private readonly IceBallTower _iceBallTower;
 
-        private Side _side;
-
         public Penguin(IceBallTower iceBallTower)
         {
             _iceBallTower = iceBallTower;
         }
+
+        public Side Side { get; private set; }
 
         public void MoveToSide(Side side)
         {
@@ -24,13 +24,13 @@ namespace Game.CodeBase.Models
 
         public void SetSide(Side side)
         {
-            if (side == _side)
+            if (side == Side)
             {
                 return;
             }
 
-            _side = side;
-            SideChanged?.Invoke(_side);
+            Side = side;
+            SideChanged?.Invoke(Side);
         }
 
         private void Eat(IceBall iceBall)

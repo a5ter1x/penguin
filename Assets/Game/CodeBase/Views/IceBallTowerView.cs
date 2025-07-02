@@ -22,7 +22,7 @@ namespace Game.CodeBase.Views
             foreach (var ballModel in balls)
             {
                 var ballView = Instantiate(_iceBallPrefab, transform);
-                ballView.SetColor(ballModel.Color);
+                ballView.SetModel(null, ballModel.Color);
                 _balls.Add(ballView);
             }
 
@@ -48,7 +48,7 @@ namespace Game.CodeBase.Views
 
         private void ReuseBallWithNewModel(IceBallView view, IceBall newModel)
         {
-            view.SetColor(newModel.Color);
+            view.SetModel(newModel.BarrierSide, newModel.Color);
         }
 
         private void UpdatePositions()

@@ -35,10 +35,20 @@ namespace Game.CodeBase.Models
             var ball = _balls[0];
             _balls.RemoveAt(0);
 
-            ball.SetData(barrierSide: null, color: RandomColor());
+            ball.SetData(barrierSide: RandomBarrierSide(), color: RandomColor());
             _balls.Add(ball);
 
             Shifted?.Invoke(ball);
+        }
+
+        private static Side? RandomBarrierSide()
+        {
+            if (Random.Range(0, 100) < 10)
+            {
+                return Random.Range(0, 2) > 0 ? Side.Left : Side.Right;
+            }
+
+            return null;
         }
 
         private static Color RandomColor()

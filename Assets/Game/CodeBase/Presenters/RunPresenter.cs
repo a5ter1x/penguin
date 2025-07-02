@@ -15,6 +15,7 @@ namespace Game.CodeBase.Presenters
             _view = view;
 
             _model.ScoreUpdated += UpdateScore;
+            _model.Lose += OnLose;
 
             UpdateScore();
         }
@@ -24,10 +25,15 @@ namespace Game.CodeBase.Presenters
             _view.DisplayScore(_model.Score);
         }
 
+        private void OnLose()
+        {
+            _view.Lose();
+        }
+
         public void Dispose()
         {
+            _model.Lose -= OnLose;
             _model.ScoreUpdated -= UpdateScore;
-
         }
     }
 }
