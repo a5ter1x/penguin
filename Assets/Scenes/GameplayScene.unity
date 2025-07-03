@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f242d943747343228101d77e5fded88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPlayer: {fileID: 519420034}
+  _audioPlayer: {fileID: 267340922}
   _playerSidePoints: {fileID: 1119313048}
   _gameUI: {fileID: 1785409765}
   _iceBallTowerView: {fileID: 692671191}
@@ -5511,6 +5511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 267340921}
+  - component: {fileID: 267340922}
   - component: {fileID: 267340920}
   m_Layer: 0
   m_Name: AudioPlayer
@@ -5631,6 +5632,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &267340922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267340919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddec996dda134ab2b5df132d66923c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 267340920}
 --- !u!1 &324150232
 GameObject:
   m_ObjectHideFlags: 0
@@ -6327,7 +6341,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6453,19 +6466,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddec996dda134ab2b5df132d66923c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioSource: {fileID: 0}
 --- !u!1 &557693655
 GameObject:
   m_ObjectHideFlags: 0

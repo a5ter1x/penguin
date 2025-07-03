@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.CodeBase.Models;
 using Game.CodeBase.Views.Components;
@@ -55,21 +56,25 @@ namespace Game.CodeBase.Views
 
         private async UniTaskVoid AnimateSkyCycle()
         {
+            var token = this.GetCancellationTokenOnDestroy();
+
             for (var i = 0; i < _skyColorStages.Count - 1; i++)
             {
                 var current = _skyColorStages[i];
                 var next = _skyColorStages[(i + 1) % _skyColorStages.Count];
 
-                await LerpColors(current, next, _skyStageDuration);
+                await LerpColors(current, next, _skyStageDuration, token);
             }
         }
 
-        private async UniTask LerpColors(VerticalGradient from, VerticalGradient to, float duration)
+        private async UniTask LerpColors(VerticalGradient from, VerticalGradient to, float duration, CancellationToken token)
         {
             var time = 0f;
 
             while (time < duration)
             {
+                token.ThrowIfCancellationRequested();
+
                 var t = time / duration;
 
                 var top = Color.Lerp(from.TopColor, to.TopColor, t);
