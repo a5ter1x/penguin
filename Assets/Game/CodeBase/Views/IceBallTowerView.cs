@@ -15,18 +15,21 @@ namespace Game.CodeBase.Views
 
         private readonly List<IceBallView> _balls = new();
 
-        public void Create(List<IceBall> balls)
+        public void Create(List<IceBall> ballModels)
         {
             Clear();
 
-            foreach (var ballModel in balls)
+            for (var i = 0; i < ballModels.Count; i++)
             {
                 var ballView = Instantiate(_iceBallPrefab, transform);
-                ballView.SetModel(null, ballModel.Color);
+
+                ballView.SetModel(null, ballModels[i].Color);
+                ballView.SetOrder(i);
+                ballView.transform.position =
+                    new Vector3(ballView.transform.position.x, _bottomPoint.position.y + i * _spacing, _bottomPoint.position.z);
+
                 _balls.Add(ballView);
             }
-
-            UpdatePositions();
         }
 
         public void Shift(IceBall ball)
