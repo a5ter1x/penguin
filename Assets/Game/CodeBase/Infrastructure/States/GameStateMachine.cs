@@ -7,7 +7,7 @@ namespace Game.CodeBase.Infrastructure.States
     {
         private readonly Dictionary<Type, IEnterState> _states;
 
-        private IEnterState _activeState;
+        private IEnterState _currentState;
 
         public GameStateMachine()
         {
@@ -20,16 +20,18 @@ namespace Game.CodeBase.Infrastructure.States
             Enter<BootstrapState>();
         }
 
+        public IState CurrentState => _currentState;
+
         public void Enter<TState>() where TState : class, IEnterState
         {
-            if (_activeState is IExitState exitState)
+            if (_currentState is IExitState exitState)
             {
                 exitState.Exit();
             }
 
             var state = _states[typeof(TState)];
 
-            _activeState = state;
+            _currentState = state;
 
             state.Enter();
         }

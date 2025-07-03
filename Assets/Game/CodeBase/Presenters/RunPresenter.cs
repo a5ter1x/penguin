@@ -38,8 +38,9 @@ namespace Game.CodeBase.Presenters
 
         public void Dispose()
         {
-            _model.Loss -= OnLoss;
             _model.ScoreUpdated -= UpdateScore;
+            _model.TimerTicked -= OnTimerTicked;
+            _model.Loss -= OnLoss;
         }
     }
 }

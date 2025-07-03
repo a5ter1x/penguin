@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Game.CodeBase.Infrastructure
+namespace Game.CodeBase.Infrastructure.Installers
 {
     public class ProjectInstaller : MonoInstaller
     {

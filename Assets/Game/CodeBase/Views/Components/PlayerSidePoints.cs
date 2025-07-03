@@ -3,7 +3,7 @@ using Game.CodeBase.Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.CodeBase.Views
+namespace Game.CodeBase.Views.Components
 {
     public class PlayerSidePoints : MonoBehaviour
     {

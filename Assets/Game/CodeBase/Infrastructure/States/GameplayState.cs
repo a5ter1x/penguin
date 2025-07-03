@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+
 namespace Game.CodeBase.Infrastructure.States
 {
     public class GameplayState : IEnterState
@@ -11,6 +13,11 @@ namespace Game.CodeBase.Infrastructure.States
 
         public void Enter()
         {
+        }
+
+        public void ReloadCurrentScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

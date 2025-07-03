@@ -51,9 +51,15 @@ namespace Game.CodeBase.Presenters
         {
             _model.SideChanged -= OnSideChanged;
             _model.IceBallEaten -= OnIceBallEaten;
+            _model.ReactedToLoss -= OnReactedToLoss;
 
             _view.OnMovedLeft -= OnMovedLeft;
             _view.OnMovedRight -= OnMovedRight;
+
+            if (_model is IDisposable disposableModel)
+            {
+                disposableModel.Dispose();
+            }
         }
     }
 }

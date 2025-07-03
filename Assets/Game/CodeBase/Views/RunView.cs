@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Game.CodeBase.Models;
+using Game.CodeBase.Views.Components;
+using Game.CodeBase.Views.UserInterface;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -18,15 +19,15 @@ namespace Game.CodeBase.Views
 
         [Required, SerializeField] private Renderer _skyRenderer;
 
-        [RequiredListLength(minLength: 0, maxLength: int.MaxValue), Required, SerializeField]
+        [RequiredListLength(minLength: 1, maxLength: int.MaxValue), Required, SerializeField]
         private List<VerticalGradient> _skyColorStages = new();
 
-        private UI _ui;
+        private GameUI _gameUI;
 
         [Inject]
-        public void Construct(UI ui)
+        public void Construct(GameUI gameUI)
         {
-            _ui = ui;
+            _gameUI = gameUI;
         }
 
         private void Start()
@@ -39,32 +40,27 @@ namespace Game.CodeBase.Views
 
         public void DisplayScore(int score)
         {
-            _ui.UpdateGameplayScoreField(score);
+            _gameUI.UpdateGameplayScoreField(score);
         }
 
         public void TickTimer(float remainingTimeNormalized)
         {
-            _ui.UpdateTimebar(remainingTimeNormalized);
+            _gameUI.UpdateTimebar(remainingTimeNormalized);
         }
-
 
         public void Loss(int score)
         {
-            _ui.ShowLossPanel(score);
+            _gameUI.ShowLossPanel(score);
         }
 
         private async UniTaskVoid AnimateSkyCycle()
         {
-            var index = 0;
-
-            while (true)
+            for (var i = 0; i < _skyColorStages.Count - 1; i++)
             {
-                var current = _skyColorStages[index];
-                var next = _skyColorStages[(index + 1) % _skyColorStages.Count];
+                var current = _skyColorStages[i];
+                var next = _skyColorStages[(i + 1) % _skyColorStages.Count];
 
                 await LerpColors(current, next, _skyStageDuration);
-
-                index = (index + 1) % _skyColorStages.Count;
             }
         }
 

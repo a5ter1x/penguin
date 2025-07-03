@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Game.CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
 
 namespace Game.CodeBase.Models
@@ -12,8 +13,9 @@ namespace Game.CodeBase.Models
         public event Action<float> TimerTicked;
         public event Action Loss;
 
-        private readonly IceBallTower _iceBallTower;
-        private readonly Penguin _penguin;
+        private IceBallTower _iceBallTower;
+        private Penguin _penguin;
+        private IInputService _inputService;
 
         private bool _isRunning;
         private float _elapsedTime;
@@ -22,12 +24,15 @@ namespace Game.CodeBase.Models
 
         public int Score { get; private set; }
 
-        public Run(IceBallTower iceBallTower, Penguin penguin)
+        public Run(IceBallTower iceBallTower, Penguin penguin, IInputService inputService)
         {
             _iceBallTower = iceBallTower;
             _penguin = penguin;
+            _inputService = inputService;
 
             _penguin.IceBallEaten += PenguinOnIceBallEaten;
+
+            _inputService.Enable();
 
             _iceBallTower.Create();
             _penguin.SetSide(Side.Left);
@@ -37,7 +42,6 @@ namespace Game.CodeBase.Models
         {
             if (!_isRunning)
             {
-                _isRunning = true;
                 StartTimerAsync().Forget();
             }
 
@@ -48,7 +52,7 @@ namespace Game.CodeBase.Models
             {
                 _penguin.ReactToLoss();
                 _iceBallTower.DestroySideBarrier();
-                Loss?.Invoke();
+                HandleLoss();
             }
         }
 
@@ -60,25 +64,38 @@ namespace Game.CodeBase.Models
 
         private async UniTaskVoid StartTimerAsync()
         {
+            _isRunning = true;
             _elapsedTime = 0;
 
             while (_elapsedTime < RunMaxDuration && _isRunning)
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
-                _elapsedTime += UnityEngine.Time.deltaTime;
+                _elapsedTime += Time.deltaTime;
                 TimerTicked?.Invoke(RemainingTimeNormalized);
             }
 
             if (_isRunning)
             {
-                _isRunning = false;
-                Loss?.Invoke();
+                HandleLoss();
             }
+        }
+
+        private void HandleLoss()
+        {
+            _isRunning = false;
+            _inputService.Disable();
+            Loss?.Invoke();
         }
 
         public void Dispose()
         {
             _penguin.IceBallEaten -= PenguinOnIceBallEaten;
+
+            _inputService.Disable();
+
+            _iceBallTower = null;
+            _penguin = null;
+            _inputService = null;
         }
     }
 }

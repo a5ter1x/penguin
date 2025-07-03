@@ -9,9 +9,8 @@ namespace Game.CodeBase.Models
     {
         private const int Size = 20;
 
-        public event Action<List<IceBall>> Creted;
+        public event Action<List<IceBall>> Created;
         public event Action<IceBall> Shifted;
-
         public event Action SideBarrierDestroyed;
 
         private readonly List<IceBall> _balls = new();
@@ -29,7 +28,7 @@ namespace Game.CodeBase.Models
                 _balls.Add(iceBall);
             }
 
-            Creted?.Invoke(_balls);
+            Created?.Invoke(_balls);
         }
 
         public void Shift()

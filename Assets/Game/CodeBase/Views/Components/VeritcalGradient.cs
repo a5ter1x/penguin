@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.CodeBase.Views
+namespace Game.CodeBase.Views.Components
 {
     [Serializable]
     public class VerticalGradient

@@ -3,6 +3,7 @@ using DG.Tweening;
 using Game.CodeBase.Common;
 using Game.CodeBase.Infrastructure.Services.Input;
 using Game.CodeBase.Models;
+using Game.CodeBase.Views.Components;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -13,7 +14,6 @@ namespace Game.CodeBase.Views
     {
         public event Action OnMovedLeft;
         public event Action OnMovedRight;
-
 
         [Header("Tilt")]
         [SerializeField] private float _tiltAngle = 7f;
@@ -30,7 +30,9 @@ namespace Game.CodeBase.Views
         [Required, SerializeField] private Animator _animator;
         [Required, SerializeField] private DashAnimationPlayer _dashAnimationPlayer;
         [Required, SerializeField] private ParticleSystem _eatVfx;
+        [Required, SerializeField] private AudioClip _eatAudioClip;
 
+        private AudioPlayer _audioPlayer;
         private IInputService _inputService;
         private PlayerSidePoints _playerSidePoints;
         private Tween _tiltTween;
@@ -43,8 +45,10 @@ namespace Game.CodeBase.Views
         }
 
         [Inject]
-        private void Construct(IInputService inputService, PlayerSidePoints playerSidePoints)
+        private void Construct(AudioPlayer audioPlayer, IInputService inputService, PlayerSidePoints playerSidePoints)
         {
+            _audioPlayer = audioPlayer;
+
             _inputService = inputService;
 
             _inputService.MoveLeft += HandleMoveLeft;
@@ -76,6 +80,7 @@ namespace Game.CodeBase.Views
         public void Eat(IceBall iceBall)
         {
             PlayEatAnimation(iceBall);
+            PlayEat();
             AnimateStretch();
             AnimateTilt();
         }
@@ -97,6 +102,12 @@ namespace Game.CodeBase.Views
 
             _eatVfx.Play();
         }
+
+        private void PlayEat()
+        {
+            _audioPlayer.PlayClip(_eatAudioClip, volume: 0.5f, pitch: 3f);
+        }
+
 
         private void AnimateStretch()
         {

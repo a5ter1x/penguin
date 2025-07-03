@@ -15,7 +15,7 @@ namespace Game.CodeBase.Presenters
             _model = model;
             _view = view;
 
-            _model.Creted += OnTowerCreated;
+            _model.Created += OnTowerCreated;
             _model.Shifted += OnTowerShifted;
             _model.SideBarrierDestroyed += OnSideBarrierDestroyed;
         }
@@ -37,8 +37,9 @@ namespace Game.CodeBase.Presenters
 
         public void Dispose()
         {
-            _model.Creted -= OnTowerCreated;
+            _model.Created -= OnTowerCreated;
             _model.Shifted -= OnTowerShifted;
+            _model.SideBarrierDestroyed -= OnSideBarrierDestroyed;
         }
     }
 }

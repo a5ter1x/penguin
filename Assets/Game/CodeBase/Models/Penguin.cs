@@ -8,7 +8,7 @@ namespace Game.CodeBase.Models
         public event Action<IceBall> IceBallEaten;
         public event Action ReactedToLoss;
 
-        private readonly IceBallTower _iceBallTower;
+        private IceBallTower _iceBallTower;
 
         public Penguin(IceBallTower iceBallTower)
         {
