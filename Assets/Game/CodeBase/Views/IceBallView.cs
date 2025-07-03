@@ -17,8 +17,13 @@ namespace Game.CodeBase.Views
         {
             _barrierSide = barrierSide;
 
+            _defaultBarrier.SetActive(false);
             _damagedBarrier.SetActive(false);
-            ActivateBarrier(_defaultBarrier);
+
+            if (_barrierSide.HasValue)
+            {
+                ActivateBarrier(_defaultBarrier.gameObject);
+            }
 
             _spriteRenderer.color = color;
         }
@@ -28,7 +33,7 @@ namespace Game.CodeBase.Views
             if (_barrierSide.HasValue)
             {
                 _defaultBarrier.gameObject.SetActive(false);
-                ActivateBarrier(_damagedBarrier);
+                ActivateBarrier(_damagedBarrier.gameObject);
             }
         }
 
@@ -56,9 +61,9 @@ namespace Game.CodeBase.Views
 
             if (targetPoint != null)
             {
-                _damagedBarrier.transform.SetParent(targetPoint, false);
-                _damagedBarrier.transform.localPosition = Vector3.zero;
-                _damagedBarrier.transform.localRotation = Quaternion.identity;
+                barrier.transform.SetParent(targetPoint, false);
+                barrier.transform.localPosition = Vector3.zero;
+                barrier.transform.localRotation = Quaternion.identity;
             }
         }
     }

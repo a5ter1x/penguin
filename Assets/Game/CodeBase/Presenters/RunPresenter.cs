@@ -15,6 +15,7 @@ namespace Game.CodeBase.Presenters
             _view = view;
 
             _model.ScoreUpdated += UpdateScore;
+            _model.TimerTicked += OnTimerTicked;
             _model.Loss += OnLoss;
 
             UpdateScore();
@@ -25,9 +26,14 @@ namespace Game.CodeBase.Presenters
             _view.DisplayScore(_model.Score);
         }
 
+        private void OnTimerTicked(float remainingTimeNormalized)
+        {
+            _view.TickTimer(remainingTimeNormalized);
+        }
+
         private void OnLoss()
         {
-            _view.Loss();
+            _view.Loss(_model.Score);
         }
 
         public void Dispose()

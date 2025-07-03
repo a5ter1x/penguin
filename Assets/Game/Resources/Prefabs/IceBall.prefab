@@ -107,8 +107,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 2584485487804737573}
   _leftBarrierPoint: {fileID: 3274442363346457886}
   _rightBarrierPoint: {fileID: 4682624172782034775}
-  _barrier: {fileID: 979025706228448910}
-  _destroyedBarrier: {fileID: 5286240681304864548}
+  _defaultBarrier: {fileID: 979025706228448910}
+  _damagedBarrier: {fileID: 5286240681304864548}
 --- !u!1 &979025706228448910
 GameObject:
   m_ObjectHideFlags: 0

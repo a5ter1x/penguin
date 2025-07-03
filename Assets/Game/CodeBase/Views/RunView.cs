@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Game.CodeBase.Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -20,30 +21,36 @@ namespace Game.CodeBase.Views
         [RequiredListLength(minLength: 0, maxLength: int.MaxValue), Required, SerializeField]
         private List<VerticalGradient> _skyColorStages = new();
 
-        private GameplayUI _gameplayUI;
+        private UI _ui;
 
         [Inject]
-        public void Construct(GameplayUI gameplayUI)
+        public void Construct(UI ui)
         {
-            _gameplayUI = gameplayUI;
+            _ui = ui;
         }
 
         private void Start()
         {
             _skyMaterial = _skyRenderer.material;
-            _skyStageDuration = Run.MaxDurationInSeconds / _skyColorStages.Count;
+            _skyStageDuration = Run.RunMaxDuration / _skyColorStages.Count;
 
             AnimateSkyCycle().Forget();
         }
 
         public void DisplayScore(int score)
         {
-            _gameplayUI.ScoreField.text = score.ToString();
+            _ui.UpdateGameplayScoreField(score);
         }
 
-        public void Loss()
+        public void TickTimer(float remainingTimeNormalized)
         {
-            Debug.Log("Lose");
+            _ui.UpdateTimebar(remainingTimeNormalized);
+        }
+
+
+        public void Loss(int score)
+        {
+            _ui.ShowLossPanel(score);
         }
 
         private async UniTaskVoid AnimateSkyCycle()

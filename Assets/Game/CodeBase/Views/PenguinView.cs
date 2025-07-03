@@ -110,6 +110,10 @@ namespace Game.CodeBase.Views
                {
                    _animator.SetState(AnimationState.Idle);
                    _eatVfx.Stop();
+               })
+               .OnKill(() =>
+               {
+                   _spriteTransform.localScale = _defaultScale;
                });
         }
 

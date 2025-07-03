@@ -19,17 +19,16 @@ namespace Game.CodeBase.Models
 
         public void MoveToSide(Side side)
         {
-            SetSide(side);
+            if (side != Side)
+            {
+                SetSide(side);
+            }
+
             Eat(_iceBallTower.BottomBall);
         }
 
         public void SetSide(Side side)
         {
-            if (side == Side)
-            {
-                return;
-            }
-
             Side = side;
             SideChanged?.Invoke(Side);
         }

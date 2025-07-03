@@ -10,7 +10,7 @@ namespace Game.CodeBase.Infrastructure
     public class GameplayInstaller : MonoInstaller
     {
         [Required, SerializeField] private PlayerSidePoints _playerSidePoints;
-        [Required, SerializeField] private GameplayUI _gameplayUI;
+        [Required, SerializeField] private UI _ui;
 
         [Required, SerializeField] private IceBallTowerView _iceBallTowerView;
         [Required, SerializeField] private PenguinView _penguinView;
@@ -20,7 +20,7 @@ namespace Game.CodeBase.Infrastructure
         {
             Container.Bind<PlayerSidePoints>().FromInstance(_playerSidePoints).AsSingle().NonLazy();
 
-            Container.Bind<GameplayUI>().FromInstance(_gameplayUI).AsSingle().NonLazy();
+            Container.Bind<UI>().FromInstance(_ui).AsSingle().NonLazy();
 
             Container.Bind<IceBallTower>().AsSingle();
             Container.Bind<IceBallTowerView>().FromInstance(_iceBallTowerView).AsSingle().NonLazy();
