@@ -11,7 +11,7 @@ namespace Game.CodeBase.Views.UserInterface
     public class GameUI : MonoBehaviour
     {
         [Header("Hint Arrows")]
-        [Required,SerializeField] private RectTransform _hintArrowsContainer;
+        [Required, SerializeField] private RectTransform _hintArrowsContainer;
         [Required, SerializeField] private RectTransform _leftHintArrow;
         [Required, SerializeField] private RectTransform _rightHintArrow;
         [SerializeField] private float _hintMoveOffset = 20f;
@@ -22,7 +22,7 @@ namespace Game.CodeBase.Views.UserInterface
         [SerializeField] private float _hintHideMoveDuration = 0.3f;
 
         [Header("Gameplay")]
-        [Required,SerializeField] private TextMeshProUGUI _gameplayScoreText;
+        [Required, SerializeField] private TextMeshProUGUI _gameplayScoreText;
         [SerializeField] private float _scorePunchScale = 1.2f;
         [SerializeField] private float _scorePunchDuration = 0.3f;
         [SerializeField] private int _scorePunchVibrato = 10;
@@ -107,6 +107,9 @@ namespace Game.CodeBase.Views.UserInterface
 
         public void ShowLossPanel(int score)
         {
+            _timeSlider.gameObject.SetActive(false);
+            _gameplayScoreText.gameObject.SetActive(false);
+
             _lossPanel.SetActive(true);
 
             _lossPanelScoreText.text = score.ToString();
