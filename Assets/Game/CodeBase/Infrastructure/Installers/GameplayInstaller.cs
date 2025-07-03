@@ -23,7 +23,7 @@ namespace Game.CodeBase.Infrastructure.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<AudioPlayer>().FromInstance(_audioPlayerPrefab).AsSingle();
+            Container.Bind<AudioPlayer>().FromComponentInNewPrefab(_audioPlayerPrefab).AsSingle();
             Container.Bind<DashAnimationPlayer>().FromComponentInNewPrefab(_dashAnimationPlayerPrefab).AsSingle();
             Container.Bind<PlayerSidePoints>().FromInstance(_playerSidePoints).AsSingle();
 
