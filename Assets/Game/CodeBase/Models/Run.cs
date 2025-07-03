@@ -10,8 +10,9 @@ namespace Game.CodeBase.Models
         public const float RunMaxDuration = 100;
 
         public event Action ScoreUpdated;
+        public event Action Started;
         public event Action<float> TimerTicked;
-        public event Action Loss;
+        public event Action Lost;
 
         private IceBallTower _iceBallTower;
         private Penguin _penguin;
@@ -19,10 +20,6 @@ namespace Game.CodeBase.Models
 
         private bool _isRunning;
         private float _elapsedTime;
-
-        private float RemainingTimeNormalized => Mathf.Clamp01((RunMaxDuration - _elapsedTime) / RunMaxDuration);
-
-        public int Score { get; private set; }
 
         public Run(IceBallTower iceBallTower, Penguin penguin, IInputService inputService)
         {
@@ -38,11 +35,17 @@ namespace Game.CodeBase.Models
             _penguin.SetSide(Side.Left);
         }
 
+        private float RemainingTimeNormalized => Mathf.Clamp01((RunMaxDuration - _elapsedTime) / RunMaxDuration);
+
+        public int Score { get; private set; }
+
+
         private void PenguinOnIceBallEaten(IceBall obj)
         {
             if (!_isRunning)
             {
                 StartTimerAsync().Forget();
+                Started?.Invoke();
             }
 
             _iceBallTower.Shift();
@@ -52,7 +55,7 @@ namespace Game.CodeBase.Models
             {
                 _penguin.ReactToLoss();
                 _iceBallTower.DestroySideBarrier();
-                HandleLoss();
+                Lose();
             }
         }
 
@@ -76,15 +79,15 @@ namespace Game.CodeBase.Models
 
             if (_isRunning)
             {
-                HandleLoss();
+                Lose();
             }
         }
 
-        private void HandleLoss()
+        private void Lose()
         {
             _isRunning = false;
             _inputService.Disable();
-            Loss?.Invoke();
+            Lost?.Invoke();
         }
 
         public void Dispose()

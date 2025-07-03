@@ -22,9 +22,9 @@ namespace Game.CodeBase.Presenters
             _view.OnMovedRight += OnMovedRight;
         }
 
-        private void OnSideChanged(Side fromSide)
+        private void OnSideChanged(Side side)
         {
-            _view.UpdateSide(fromSide);
+            _view.ChangeSide(side);
         }
 
         private void OnIceBallEaten(IceBall iceBall)
@@ -55,11 +55,6 @@ namespace Game.CodeBase.Presenters
 
             _view.OnMovedLeft -= OnMovedLeft;
             _view.OnMovedRight -= OnMovedRight;
-
-            if (_model is IDisposable disposableModel)
-            {
-                disposableModel.Dispose();
-            }
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Game.CodeBase.Views
             OnMovedRight?.Invoke();
         }
 
-        public void UpdateSide(Side side)
+        public void ChangeSide(Side side)
         {
             _dashAnimationPlayer.PlayOnce(transform.position, transform.localEulerAngles);
 

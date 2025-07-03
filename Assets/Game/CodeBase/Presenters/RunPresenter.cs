@@ -15,15 +15,21 @@ namespace Game.CodeBase.Presenters
             _view = view;
 
             _model.ScoreUpdated += UpdateScore;
+            _model.Started += OnRunStarted;
             _model.TimerTicked += OnTimerTicked;
-            _model.Loss += OnLoss;
+            _model.Lost += OnLost;
 
             UpdateScore();
         }
 
         private void UpdateScore()
         {
-            _view.DisplayScore(_model.Score);
+            _view.UpdateScore(_model.Score);
+        }
+
+        private void OnRunStarted()
+        {
+            _view.StartRun();
         }
 
         private void OnTimerTicked(float remainingTimeNormalized)
@@ -31,16 +37,17 @@ namespace Game.CodeBase.Presenters
             _view.TickTimer(remainingTimeNormalized);
         }
 
-        private void OnLoss()
+        private void OnLost()
         {
-            _view.Loss(_model.Score);
+            _view.Lose(_model.Score);
         }
 
         public void Dispose()
         {
             _model.ScoreUpdated -= UpdateScore;
+            _model.Started += OnRunStarted;
             _model.TimerTicked -= OnTimerTicked;
-            _model.Loss -= OnLoss;
+            _model.Lost -= OnLost;
         }
     }
 }

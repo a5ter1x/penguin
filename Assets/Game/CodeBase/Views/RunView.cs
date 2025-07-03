@@ -35,13 +35,17 @@ namespace Game.CodeBase.Views
         {
             _skyMaterial = _skyRenderer.material;
             _skyStageDuration = Run.RunMaxDuration / _skyColorStages.Count;
-
-            AnimateSkyCycle().Forget();
         }
 
-        public void DisplayScore(int score)
+        public void UpdateScore(int score)
         {
             _gameUI.UpdateGameplayScoreField(score);
+        }
+
+        public void StartRun()
+        {
+            _gameUI.AnimateHintArrowsOut();
+            AnimateSkyCycle().Forget();
         }
 
         public void TickTimer(float remainingTimeNormalized)
@@ -49,7 +53,7 @@ namespace Game.CodeBase.Views
             _gameUI.UpdateTimebar(remainingTimeNormalized);
         }
 
-        public void Loss(int score)
+        public void Lose(int score)
         {
             _gameUI.ShowLossPanel(score);
         }

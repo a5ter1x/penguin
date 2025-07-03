@@ -10,19 +10,19 @@ namespace Game.CodeBase.Views.UserInterface
 {
     public class GameUI : MonoBehaviour
     {
-        [Header("Hint Arrows"),Required,SerializeField]
-                private RectTransform _hintArrowsContainer;
+        [Header("Hint Arrows")]
+        [Required,SerializeField] private RectTransform _hintArrowsContainer;
         [Required, SerializeField] private RectTransform _leftHintArrow;
         [Required, SerializeField] private RectTransform _rightHintArrow;
         [SerializeField] private float _hintMoveOffset = 20f;
         [SerializeField] private float _hintMoveDuration = 0.5f;
         [SerializeField] private float _hintHideScale = 0.8f;
-        [SerializeField] private float _hintHideScaleDuration = 0.2f;
+        [SerializeField] private float _hintHideScaleDuration = 0.1f;
         [SerializeField] private float _hintHideOffsetY = -200f;
-        [SerializeField] private float _hintHideMoveDuration = 0.6f;
+        [SerializeField] private float _hintHideMoveDuration = 0.3f;
 
-        [Header("Gameplay"),Required,SerializeField]
-                private TextMeshProUGUI _gameplayScoreText;
+        [Header("Gameplay")]
+        [Required,SerializeField] private TextMeshProUGUI _gameplayScoreText;
         [SerializeField] private float _scorePunchScale = 1.2f;
         [SerializeField] private float _scorePunchDuration = 0.3f;
         [SerializeField] private int _scorePunchVibrato = 10;
@@ -32,8 +32,8 @@ namespace Game.CodeBase.Views.UserInterface
 
         [Required, SerializeField] private Button _restartFromGameplayButton;
 
-        [Header("Loss"),Required,SerializeField]
-                private GameObject _lossPanel;
+        [Header("Loss")]
+        [Required, SerializeField] private GameObject _lossPanel;
         [Required, SerializeField] private TextMeshProUGUI _lossPanelScoreText;
         [Required, SerializeField] private Button _restartFromLossButton;
 
@@ -60,10 +60,9 @@ namespace Game.CodeBase.Views.UserInterface
         private void Start()
         {
             AnimateHintArrowsLoop();
-            AnimateHintArrowsOut();
         }
 
-        private void AnimateHintArrowsOut()
+        public void AnimateHintArrowsOut()
         {
             _leftHintTween?.Kill();
             _rightHintTween?.Kill();
