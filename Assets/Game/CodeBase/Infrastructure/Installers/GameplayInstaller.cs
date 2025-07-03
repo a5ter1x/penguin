@@ -12,33 +12,34 @@ namespace Game.CodeBase.Infrastructure.Installers
 {
     public class GameplayInstaller : MonoInstaller
     {
-        [Required, SerializeField] private AudioPlayer _audioPlayer;
-        [Required, SerializeField] private PlayerSidePoints _playerSidePoints;
         [Required, SerializeField] private GameUI _gameUI;
-
         [Required, SerializeField] private IceBallTowerView _iceBallTowerView;
-        [Required, SerializeField] private PenguinView _penguinView;
+        [Required, SerializeField] private PlayerSidePoints _playerSidePoints;
         [Required, SerializeField] private RunView _runView;
+
+        [Required, SerializeField] private AudioPlayer _audioPlayerPrefab;
+        [Required, SerializeField] private DashAnimationPlayer _dashAnimationPlayerPrefab;
+        [Required, SerializeField] private PenguinView _penguinViewPrefab;
 
         public override void InstallBindings()
         {
-            Container.Bind<AudioPlayer>().FromInstance(_audioPlayer).AsSingle().NonLazy();
+            Container.Bind<AudioPlayer>().FromInstance(_audioPlayerPrefab).AsSingle();
+            Container.Bind<DashAnimationPlayer>().FromComponentInNewPrefab(_dashAnimationPlayerPrefab).AsSingle();
+            Container.Bind<PlayerSidePoints>().FromInstance(_playerSidePoints).AsSingle();
 
-            Container.Bind<PlayerSidePoints>().FromInstance(_playerSidePoints).AsSingle().NonLazy();
-
-            Container.Bind<IRestartCommand>().To<RestartCommand>().AsTransient().NonLazy();
-            Container.Bind<GameUI>().FromInstance(_gameUI).NonLazy();
+            Container.Bind<IRestartCommand>().To<RestartCommand>().AsTransient();
+            Container.Bind<GameUI>().FromInstance(_gameUI);
 
             Container.Bind<IceBallTower>().AsSingle();
-            Container.Bind<IceBallTowerView>().FromInstance(_iceBallTowerView).AsSingle().NonLazy();
+            Container.Bind<IceBallTowerView>().FromInstance(_iceBallTowerView).AsSingle();
             Container.Bind<IceBallTowerPresenter>().AsSingle().NonLazy();
 
             Container.Bind<Penguin>().AsSingle();
-            Container.Bind<PenguinView>().FromInstance(_penguinView).AsSingle().NonLazy();
+            Container.Bind<PenguinView>().FromComponentInNewPrefab(_penguinViewPrefab).AsSingle();
             Container.Bind<PenguinPresenter>().AsSingle().NonLazy();
 
             Container.Bind<Run>().AsSingle();
-            Container.Bind<RunView>().FromInstance(_runView).AsSingle().NonLazy();
+            Container.Bind<RunView>().FromInstance(_runView).AsSingle();
             Container.Bind<RunPresenter>().AsSingle().NonLazy();
         }
     }

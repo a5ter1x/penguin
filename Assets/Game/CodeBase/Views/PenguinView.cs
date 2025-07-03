@@ -28,11 +28,11 @@ namespace Game.CodeBase.Views
 
         [Required, SerializeField] private Transform _spriteTransform;
         [Required, SerializeField] private Animator _animator;
-        [Required, SerializeField] private DashAnimationPlayer _dashAnimationPlayer;
         [Required, SerializeField] private ParticleSystem _eatVfx;
         [Required, SerializeField] private AudioClip _eatAudioClip;
 
         private AudioPlayer _audioPlayer;
+        private DashAnimationPlayer _dashAnimationPlayer;
         private IInputService _inputService;
         private PlayerSidePoints _playerSidePoints;
         private Tween _tiltTween;
@@ -45,11 +45,17 @@ namespace Game.CodeBase.Views
         }
 
         [Inject]
-        private void Construct(AudioPlayer audioPlayer, IInputService inputService, PlayerSidePoints playerSidePoints)
+        private void Construct(
+            IInputService inputService,
+            AudioPlayer audioPlayer,
+            DashAnimationPlayer dashAnimationPlayer,
+            PlayerSidePoints playerSidePoints)
         {
+            _inputService = inputService;
+
             _audioPlayer = audioPlayer;
 
-            _inputService = inputService;
+            _dashAnimationPlayer = dashAnimationPlayer;
 
             _inputService.MoveLeft += HandleMoveLeft;
             _inputService.MoveRight += HandleMoveRight;
