@@ -6,7 +6,7 @@
 - **MVP pattern**
 
 ## Screenshots
-![preview](preview.png)
+![preview](preview.gif)
 
  [Play on Itch.io](https://a5ter1x.itch.io/penguin-lunch)
 
